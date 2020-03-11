@@ -1,17 +1,15 @@
 language: cpp
-
 matrix:
   include:
-    - os: linux
-      dist: xenial
-      sudo: required
-      addons:
-        apt:
-          packages:
-            - libgl1-mesa-dev
-    - os: osx
-      osx_image: xcode9
-
+  - os: linux
+    dist: xenial
+    sudo: required
+    addons:
+      apt:
+        packages:
+        - libgl1-mesa-dev
+  - os: osx
+    osx_image: xcode9
 before_install: |
   if [[ $TRAVIS_OS_NAME == "linux" ]]; then
     sudo add-apt-repository ppa:beineri/opt-qt-5.12.3-xenial -y
@@ -20,7 +18,6 @@ before_install: |
   if [[ $TRAVIS_OS_NAME == "osx" ]]; then
     brew update
   fi
-
 install: |
   if [[ $TRAVIS_OS_NAME == "linux" ]]; then
     sudo apt install qt512base -y
@@ -30,17 +27,17 @@ install: |
     brew install qt
     brew link --force qt
   fi
-
 script:
-  - if [[ $TRAVIS_OS_NAME == "linux" ]]; then chmod +x $TRAVIS_BUILD_DIR/build/linux.sh; $TRAVIS_BUILD_DIR/build/linux.sh; fi
-  - if [[ $TRAVIS_OS_NAME == "osx" ]]; then chmod +x $TRAVIS_BUILD_DIR/build/osx.sh; $TRAVIS_BUILD_DIR/build/osx.sh; fi
-
+- if [[ $TRAVIS_OS_NAME == "linux" ]]; then chmod +x $TRAVIS_BUILD_DIR/build/linux.sh;
+  $TRAVIS_BUILD_DIR/build/linux.sh; fi
+- if [[ $TRAVIS_OS_NAME == "osx" ]]; then chmod +x $TRAVIS_BUILD_DIR/build/osx.sh;
+  $TRAVIS_BUILD_DIR/build/osx.sh; fi
 deploy:
   provider: releases
   api_key:
-    secure: R/e46wWF2V7B0sx1WEu04Y9c4rmtXw/b80APFfO98+ZhDKBWSDR/ZMzN1KKALhgrRobqUrqONc4KSXpX4s06RfiokDw6X0Q3j9nWNvPg+yk7n0cMw3AH/+u45n83rKeIlYM0pFsklXd7FJyaYW2YThhsTAk1Y7YQ+2uLrWGJl+g=
+    secure: RnsYH8Oj0pTHjGR3uMe76eUQpVXMwgFzqv4fSBeDAVrvmkwjdlPkxfrOQs451wuImIxVUJ0d+WHTEMZusYPmer9Pud7GAMiLpRh+GL8pkFzzSF5U7DuOjApnaSS2JYWOB0cW37pGksLEvUIIY5TiKp3FqS4IfUYcIDn/5OEZnKsfUFhh+OlzyIblHnDhGxTA/2v02QXWn3gDKvCP8RCOTNYDBQkmNqlPFlWALSzoR6Squ7ChBJ9io8XeHLVQvaQFrlY/5zzMWrVLJl7NxHzgZEs21dFrFQvRkE7T2iuYizYzhtZ08RsIZBWdp0GUhG14oAMV9qIpp7AhTn8FVDN6T3kKWCuacXTXvSLaK2Hv7QXjWjX4NfMF89D0Mc1DdVhp/X2emTLJ4ppJ2PjsVZ/IF69oIY2IV03A4EW+iXy7UGcbDOURoCxEfRtq7cfR/xG58XvY7Ak1Zf1Z3vXb7Hok4iOSbasGNOT7DSsYfFYwbxAKRIPNiTIpGemt48iRmN2bCkr/UuqQLzyxEMjSu5qFVqEvupBei66tReBscAXQIllnZSq7XP9YSYml5It9EUgkqfvr7W212fowzZQspzVjsfgT871DyoPm4Q0eNeNGazaHzTdlyofWKMjyNw5ssE+cVVvmZKvj1JjtmphVdffK1b9sPS2ggyrRJ94GYkMTpcs=
   file_glob: true
   file: deploy/*
   skip_cleanup: true
   on:
-    tags: true
+    repo: gouyelliot/apkstudio
