@@ -23,7 +23,7 @@ void ApkRecompileWorker::recompile()
     heap = heap.arg(QString::number(ProcessUtils::javaHeapSize()));
     QStringList args;
     args << heap << "-jar" << apktool;
-    args << "b" << m_Folder;
+    args << "b" << m_Folder << "--use-aapt2";
     ProcessResult result = ProcessUtils::runCommand(java, args);
 #ifdef QT_DEBUG
     qDebug() << "Apktool returned code" << result.code;
